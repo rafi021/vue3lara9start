@@ -6,6 +6,8 @@ export default function usePosts(){
     const posts = ref({});  // define posts object variable as ref
     const router = useRouter()
     const validationErrors = ref({})
+    const isLoading = ref(false)
+
 
 
     // get posts method
@@ -27,6 +29,11 @@ export default function usePosts(){
 
     // store post method
     const storePost = async(post) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true
+        validationErrors.value = {}
+
         axios.post('/api/posts', post)
         .then(response => {
             router.push({
@@ -38,13 +45,15 @@ export default function usePosts(){
                 validationErrors.value = error.response.data.errors
             }
         })
+        .finally(() => isLoading.value = false)
     }
 
 
     return {
         posts,
+        isLoading,
+        validationErrors,
         getPosts,
-        storePost,
-        validationErrors
+        storePost
     }
 }
