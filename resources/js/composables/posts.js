@@ -5,6 +5,8 @@ import { useRouter } from "vue-router";
 export default function usePosts(){
     const posts = ref({});  // define posts object variable as ref
     const router = useRouter()
+    const validationErrors = ref({})
+
 
     // get posts method
     const getPosts = async (
@@ -31,12 +33,18 @@ export default function usePosts(){
                 name: 'posts.index'
             })
         })
+        .catch(error => {
+            if (error.response?.data) {
+                validationErrors.value = error.response.data.errors
+            }
+        })
     }
 
 
     return {
         posts,
         getPosts,
-        storePost
+        storePost,
+        validationErrors
     }
 }
