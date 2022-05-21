@@ -40,23 +40,22 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { onMounted } from 'vue'
+import usePosts from '../../composables/posts';
 
 export default{
-    data(){
-        return{
-            posts: []
-        }
-    },
-    mounted() {
-        this.fetchPosts()
-    },
-    methods: {
-        fetchPosts(){
-            axios.get('/api/posts')
-            .then(response => this.posts = response.data)
-            .catch(error => console.log(error))
+    setup(){
+        /*use usePosts composibles */
+        const { posts, getPosts} = usePosts()
+
+        /*onMounted get the posts */
+        onMounted(getPosts);
+
+        /*Finally return the values */
+        return {
+            posts
         }
     }
 }
+
 </script>
