@@ -2,13 +2,13 @@ import axios from "axios";
 import { ref } from "vue";
 
 export default function usePosts(){
-    const posts = ref([]);  // define posts array variable as ref
+    const posts = ref({});  // define posts object variable as ref
 
     // get posts methods
-    const getPosts = async() => {
-        axios.get('/api/posts')
+    const getPosts = async (page = 1) => {
+        axios.get('/api/posts?page=' + page)
         .then(response => {
-            posts.value = response.data.data;
+            posts.value = response.data;
         })
     }
 
