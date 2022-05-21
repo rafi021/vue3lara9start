@@ -93,6 +93,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         <router-link :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link>
+                        <a href="#" @click.prevent="deletePost(post.id)" class="ml-2">Delete</a>
                     </td>
                 </tr>
                 </tbody>
@@ -123,7 +124,7 @@ export default{
         const orderDirection = ref('desc')
 
         /*use usePosts composibles */
-        const { posts, getPosts} = usePosts()
+        const { posts, getPosts, deletePost } = usePosts()
         const { categories, getCategories } = useCategories()
 
 
@@ -152,6 +153,7 @@ export default{
             orderColumn,
             orderDirection,
             getPosts,
+            deletePost,
             updateOrdering
         }
     }

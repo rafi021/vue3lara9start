@@ -55,4 +55,9 @@ class PostController extends Controller
         $post->update($request->validated());
         return new PostResource($post);
     }
+
+    public function destroy(Post $post) {
+        $post->delete();
+        return response()->noContent();
+    }
 }

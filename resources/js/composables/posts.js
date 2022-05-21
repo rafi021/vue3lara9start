@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import {ref, inject} from 'vue'
+import {useRouter} from 'vue-router'
 
 export default function usePosts(){
     const posts = ref({});  // define posts object variable as ref
@@ -8,6 +8,8 @@ export default function usePosts(){
     const router = useRouter()
     const validationErrors = ref({})
     const isLoading = ref(false)
+    const swal = inject('$swal')
+
 
 
 
@@ -45,8 +47,10 @@ export default function usePosts(){
 
         axios.post('/api/posts', serializedPost)
         .then(response => {
-            router.push({
-                name: 'posts.index'
+            router.push({name: 'posts.index'})
+            swal({
+                icon: 'success',
+                title: 'Post saved successfully'
             })
         })
         .catch(error => {
@@ -74,7 +78,11 @@ export default function usePosts(){
 
         axios.put('/api/posts/' + post.id, post)
             .then(response => {
-                router.push({ name: 'posts.index' })
+                router.push({name: 'posts.index'})
+                swal({
+                    icon: 'success',
+                    title: 'Post saved successfully'
+                })
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -85,6 +93,41 @@ export default function usePosts(){
     }
 
 
+    /*delete post */
+    const deletePost = async (id) => {
+        swal({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this action!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#ef4444',
+            timer: 20000,
+            timerProgressBar: true,
+            reverseButtons: true
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    axios.delete('/api/posts/' + id)
+                        .then(response => {
+                            getPosts()
+                            router.push({name: 'posts.index'})
+                            swal({
+                                icon: 'success',
+                                title: 'Post deleted successfully'
+                            })
+                        })
+                        .catch(error => {
+                            swal({
+                                icon: 'error',
+                                title: 'Something went wrong'
+                            })
+                        })
+                }
+            })
+
+    }
+
     return {
         post,
         posts,
@@ -93,6 +136,7 @@ export default function usePosts(){
         getPost,
         getPosts,
         storePost,
-        updatePost
+        updatePost,
+        deletePost
     }
 }
