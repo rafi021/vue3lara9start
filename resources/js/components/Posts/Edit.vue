@@ -73,16 +73,16 @@ export default {
     setup(){
         /* use consumables */
         const { categories, getCategories } = useCategories();
-        const { post, getPosts, validationErrors, isLoading } = usePosts();
+        const { post, getPost, updatePost, validationErrors, isLoading } = usePosts();
         const route = useRoute();
 
         onMounted(() => {
-            getPosts(route.params.id)
+            getPost(route.params.id)
             getCategories()
         })
 
         return {
-            categories, post, validationErrors, isLoading
+            categories, post, validationErrors, isLoading, updatePost
         }
     }
 }

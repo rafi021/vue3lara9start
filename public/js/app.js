@@ -21764,20 +21764,22 @@ __webpack_require__.r(__webpack_exports__);
 
     var _usePosts = (0,_composables_posts__WEBPACK_IMPORTED_MODULE_2__["default"])(),
         post = _usePosts.post,
-        getPosts = _usePosts.getPosts,
+        getPost = _usePosts.getPost,
+        updatePost = _usePosts.updatePost,
         validationErrors = _usePosts.validationErrors,
         isLoading = _usePosts.isLoading;
 
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRoute)();
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
-      getPosts(route.params.id);
+      getPost(route.params.id);
       getCategories();
     });
     return {
       categories: categories,
       post: post,
       validationErrors: validationErrors,
-      isLoading: isLoading
+      isLoading: isLoading,
+      updatePost: updatePost
     };
   }
 });
@@ -22132,7 +22134,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
     onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-      return _ctx.updatePost($setup.post);
+      return $setup.updatePost($setup.post);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Title "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -22840,6 +22842,51 @@ function usePosts() {
       return _ref3.apply(this, arguments);
     };
   }();
+  /*update post method */
+
+
+  var updatePost = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(post) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!isLoading.value) {
+                _context4.next = 2;
+                break;
+              }
+
+              return _context4.abrupt("return");
+
+            case 2:
+              isLoading.value = true;
+              validationErrors.value = {};
+              axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/posts/' + post.id, post).then(function (response) {
+                router.push({
+                  name: 'posts.index'
+                });
+              })["catch"](function (error) {
+                var _error$response2;
+
+                if ((_error$response2 = error.response) !== null && _error$response2 !== void 0 && _error$response2.data) {
+                  validationErrors.value = error.response.data.errors;
+                }
+              })["finally"](function () {
+                return isLoading.value = false;
+              });
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function updatePost(_x3) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
 
   return {
     post: post,
@@ -22848,7 +22895,8 @@ function usePosts() {
     validationErrors: validationErrors,
     getPost: getPost,
     getPosts: getPosts,
-    storePost: storePost
+    storePost: storePost,
+    updatePost: updatePost
   };
 }
 

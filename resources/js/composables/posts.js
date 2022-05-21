@@ -65,6 +65,25 @@ export default function usePosts(){
             })
     }
 
+    /*update post method */
+    const updatePost = async (post) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true
+        validationErrors.value = {}
+
+        axios.put('/api/posts/' + post.id, post)
+            .then(response => {
+                router.push({ name: 'posts.index' })
+            })
+            .catch(error => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors
+                }
+            })
+            .finally(() => isLoading.value = false)
+    }
+
 
     return {
         post,
@@ -73,6 +92,7 @@ export default function usePosts(){
         validationErrors,
         getPost,
         getPosts,
-        storePost
+        storePost,
+        updatePost
     }
 }
