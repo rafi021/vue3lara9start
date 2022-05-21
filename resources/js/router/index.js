@@ -5,13 +5,15 @@ import PostCreate from '../components/Posts/Create.vue'
 const routes = [
     {
         path: '/',
+        name: 'posts.index',
         component:  PostIndex,
-        name: 'posts.index'
+        meta: {title: 'Posts'}
     },
     {
         path: '/posts/create',
+        name: 'posts.create',
         component:  PostCreate,
-        name: 'posts.create'
+        meta: {title: 'Add new post'}
     }
 ];
 
