@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 
 export default function usePosts(){
     const posts = ref({});  // define posts object variable as ref
+    const post = ref({});   // define single post
     const router = useRouter()
     const validationErrors = ref({})
     const isLoading = ref(false)
@@ -56,11 +57,21 @@ export default function usePosts(){
         .finally(() => isLoading.value = false)
     }
 
+    /*get single post method */
+    const getPost = async(id) => {
+        axios.get('/api/posts/' + id)
+            .then(response => {
+                post.value = response.data.data;
+            })
+    }
+
 
     return {
+        post,
         posts,
         isLoading,
         validationErrors,
+        getPost,
         getPosts,
         storePost
     }
