@@ -21832,6 +21832,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _composables_posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../composables/posts */ "./resources/js/composables/posts.js");
 /* harmony import */ var _composables_categories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../composables/categories */ "./resources/js/composables/categories.js");
+/* harmony import */ var _casl_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @casl/vue */ "./node_modules/@casl/vue/dist/es6m/index.mjs");
+
 
 
 
@@ -21854,6 +21856,9 @@ __webpack_require__.r(__webpack_exports__);
     var _useCategories = (0,_composables_categories__WEBPACK_IMPORTED_MODULE_2__["default"])(),
         categories = _useCategories.categories,
         getCategories = _useCategories.getCategories;
+
+    var _useAbility = (0,_casl_vue__WEBPACK_IMPORTED_MODULE_3__.useAbility)(),
+        can = _useAbility.can;
 
     getPosts(1, search_category.value, search_id.value, search_title.value, search_content.value, search_global.value, orderColumn.value, orderDirection.value);
 
@@ -21900,7 +21905,8 @@ __webpack_require__.r(__webpack_exports__);
       orderDirection: orderDirection,
       getPosts: getPosts,
       deletePost: deletePost,
-      updateOrdering: updateOrdering
+      updateOrdering: updateOrdering,
+      can: can
     };
   }
 });
@@ -22682,7 +22688,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.created_at), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, [$setup.can('posts.update') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+      key: 0,
       to: {
         name: 'posts.edit',
         params: {
@@ -22698,7 +22705,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
     }, 1032
     /* PROPS, DYNAMIC_SLOTS */
-    , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    , ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.can('posts.delete') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+      key: 1,
       href: "#",
       onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
         return $setup.deletePost(post.id);
@@ -22706,7 +22714,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "ml-2"
     }, "Delete", 8
     /* PROPS */
-    , _hoisted_30)])]);
+    , _hoisted_30)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Pagination, {
@@ -22921,10 +22929,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/vue-sweetalert.umd.js");
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _composables_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./composables/auth */ "./resources/js/composables/auth.js");
+/* harmony import */ var _casl_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @casl/vue */ "./node_modules/@casl/vue/dist/es6m/index.mjs");
+/* harmony import */ var _services_ability__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/ability */ "./resources/js/services/ability.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
  // import App from './layouts/App.vue';
+
+
 
 
 
@@ -22939,6 +22951,7 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
 });
 app.use(_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 app.use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()));
+app.use(_casl_vue__WEBPACK_IMPORTED_MODULE_5__.abilitiesPlugin, _services_ability__WEBPACK_IMPORTED_MODULE_6__["default"]);
 app.component('Pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.mount('#app');
 
@@ -23002,7 +23015,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ useAuth)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var _casl_ability__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @casl/ability */ "./node_modules/@casl/ability/dist/es6m/index.mjs");
+/* harmony import */ var _casl_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @casl/vue */ "./node_modules/@casl/vue/dist/es6m/index.mjs");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -23013,6 +23030,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
+
+
 var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
   name: '',
   email: ''
@@ -23020,8 +23040,9 @@ var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
 function useAuth() {
   var processing = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
   var validationErrors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({});
-  var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
+  var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
   var swal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('$swal');
+  var ability = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(_casl_vue__WEBPACK_IMPORTED_MODULE_1__.ABILITY_TOKEN);
   var loginForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
     email: '',
     password: '',
@@ -23045,7 +23066,7 @@ function useAuth() {
             case 2:
               processing.value = true;
               validationErrors.value = {};
-              axios.post('/login', loginForm).then( /*#__PURE__*/function () {
+              axios__WEBPACK_IMPORTED_MODULE_2___default().post('/login', loginForm).then( /*#__PURE__*/function () {
                 var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(response) {
                   return _regeneratorRuntime().wrap(function _callee$(_context) {
                     while (1) {
@@ -23087,19 +23108,41 @@ function useAuth() {
     };
   }();
 
-  var loginUser = function loginUser(response) {
-    user.name = response.data.name;
-    user.email = response.data.email;
-    localStorage.setItem('loggedIn', JSON.stringify(true));
-    router.push({
-      name: 'posts.index'
-    });
-  };
+  var loginUser = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(response) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              user.name = response.data.name;
+              user.email = response.data.email;
+              localStorage.setItem('loggedIn', JSON.stringify(true));
+              _context3.next = 5;
+              return getAbilities();
+
+            case 5:
+              _context3.next = 7;
+              return router.push({
+                name: 'posts.index'
+              });
+
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function loginUser(_x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
   /*get the logged in user info */
 
 
   var getUser = function getUser() {
-    axios.get('/api/user').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/user').then(function (response) {
       loginUser(response);
     });
   };
@@ -23107,21 +23150,21 @@ function useAuth() {
 
 
   var logout = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               if (!processing.value) {
-                _context3.next = 2;
+                _context4.next = 2;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context4.abrupt("return");
 
             case 2:
               processing.value = true;
-              axios.post('logout').then(function (response) {
+              axios__WEBPACK_IMPORTED_MODULE_2___default().post('/logout').then(function (response) {
                 return router.push({
                   name: 'login'
                 });
@@ -23137,14 +23180,44 @@ function useAuth() {
 
             case 4:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
     return function logout() {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var getAbilities = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/abilities').then(function (response) {
+                var permissions = response.data;
+
+                var _AbilityBuilder = new _casl_ability__WEBPACK_IMPORTED_MODULE_4__.AbilityBuilder(_casl_ability__WEBPACK_IMPORTED_MODULE_4__.Ability),
+                    can = _AbilityBuilder.can,
+                    rules = _AbilityBuilder.rules;
+
+                can(permissions);
+                ability.update(rules);
+              });
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function getAbilities() {
+      return _ref5.apply(this, arguments);
     };
   }();
 
@@ -23155,7 +23228,8 @@ function useAuth() {
     submitLogin: submitLogin,
     user: user,
     getUser: getUser,
-    logout: logout
+    logout: logout,
+    getAbilities: getAbilities
   };
 }
 
@@ -23575,6 +23649,29 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createRouter)({
   routes: routes
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
+
+/***/ }),
+
+/***/ "./resources/js/services/ability.js":
+/*!******************************************!*\
+  !*** ./resources/js/services/ability.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _casl_ability__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @casl/ability */ "./node_modules/@casl/ability/dist/es6m/index.mjs");
+
+
+var _AbilityBuilder = new _casl_ability__WEBPACK_IMPORTED_MODULE_0__.AbilityBuilder(_casl_ability__WEBPACK_IMPORTED_MODULE_0__.Ability),
+    can = _AbilityBuilder.can,
+    cannot = _AbilityBuilder.cannot,
+    build = _AbilityBuilder.build;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (build());
 
 /***/ }),
 
@@ -46047,6 +46144,271 @@ const getGlobalThis = () => {
 };
 
 
+
+
+/***/ }),
+
+/***/ "./node_modules/@casl/ability/dist/es6m/index.mjs":
+/*!********************************************************!*\
+  !*** ./node_modules/@casl/ability/dist/es6m/index.mjs ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Ability": () => (/* binding */ Ability),
+/* harmony export */   "AbilityBuilder": () => (/* binding */ AbilityBuilder),
+/* harmony export */   "ForbiddenError": () => (/* binding */ ForbiddenError),
+/* harmony export */   "PureAbility": () => (/* binding */ PureAbility),
+/* harmony export */   "buildMongoQueryMatcher": () => (/* binding */ it),
+/* harmony export */   "createAliasResolver": () => (/* binding */ k),
+/* harmony export */   "defineAbility": () => (/* binding */ defineAbility),
+/* harmony export */   "detectSubjectType": () => (/* binding */ S),
+/* harmony export */   "fieldPatternMatcher": () => (/* binding */ at),
+/* harmony export */   "getDefaultErrorMessage": () => (/* binding */ dt),
+/* harmony export */   "hkt": () => (/* binding */ bt),
+/* harmony export */   "mongoQueryMatcher": () => (/* binding */ st),
+/* harmony export */   "subject": () => (/* binding */ R),
+/* harmony export */   "wrapArray": () => (/* binding */ O)
+/* harmony export */ });
+/* harmony import */ var _ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ucast/mongo2js */ "./node_modules/@ucast/mongo/dist/es6m/index.mjs");
+/* harmony import */ var _ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ucast/mongo2js */ "./node_modules/@ucast/js/dist/es6m/index.mjs");
+/* harmony import */ var _ucast_mongo2js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ucast/mongo2js */ "./node_modules/@ucast/mongo2js/dist/es6m/index.mjs");
+function O(t){return Array.isArray(t)?t:[t]}const C="__caslSubjectType__";function R(t,e){if(e)if(!e.hasOwnProperty(C))Object.defineProperty(e,C,{value:t});else if(t!==e[C])throw new Error(`Trying to cast object to subject type ${t} but previously it was casted to ${e[C]}`);return e}const T=t=>{const e=typeof t;return"string"===e||"function"===e};const B=t=>t.modelName||t.name;const P=t=>"string"===typeof t?t:B(t);function S(t){if(t.hasOwnProperty(C))return t[C];return B(t.constructor)}function q(t,e,i){let s=O(e);let n=0;while(n<s.length){const e=s[n++];if(t.hasOwnProperty(e))s=i(s,t[e])}return s}function z(t,e){if("string"===typeof e&&-1!==t.indexOf(e))return e;for(let i=0;i<e.length;i++)if(-1!==t.indexOf(e[i]))return e[i];return null}const D=(t,e)=>t.concat(e);function Y(t,e){if(e in t)throw new Error(`Cannot use "${e}" as an alias because it's reserved action.`);const i=Object.keys(t);const s=(t,i)=>{const s=z(t,i);if(s)throw new Error(`Detected cycle ${s} -> ${t.join(", ")}`);const n="string"===typeof i&&i===e||-1!==t.indexOf(e)||Array.isArray(i)&&-1!==i.indexOf(e);if(n)throw new Error(`Cannot make an alias to "${e}" because this is reserved action`);return t.concat(i)};for(let e=0;e<i.length;e++)q(t,i[e],s)}function k(t,e){if(!e||false!==e.skipValidate)Y(t,e&&e.anyAction||"manage");return e=>q(t,e,D)}function I(t,e,i){for(let s=i;s<e.length;s++)t.push(e[s])}function L(t,e){if(!t||!t.length)return e||[];if(!e||!e.length)return t||[];let i=0;let s=0;const n=[];while(i<t.length&&s<e.length)if(t[i].priority<e[s].priority){n.push(t[i]);i++}else{n.push(e[s]);s++}I(n,t,i);I(n,e,s);return n}function U(t,e,i){let s=t.get(e);if(!s){s=i();t.set(e,s)}return s}const G=t=>t;function H(t,e){if(Array.isArray(t.fields)&&!t.fields.length)throw new Error("`rawRule.fields` cannot be an empty array. https://bit.ly/390miLa");if(t.fields&&!e.fieldMatcher)throw new Error('You need to pass "fieldMatcher" option in order to restrict access by fields');if(t.conditions&&!e.conditionsMatcher)throw new Error('You need to pass "conditionsMatcher" option in order to restrict access by conditions')}class J{constructor(t,e,i=0){H(t,e);this.action=e.resolveAction(t.action);this.subject=t.subject;this.inverted=!!t.inverted;this.conditions=t.conditions;this.reason=t.reason;this.fields=t.fields?O(t.fields):void 0;this.priority=i;this.t=e}i(){if(this.conditions&&!this.o)this.o=this.t.conditionsMatcher(this.conditions);return this.o}get ast(){const t=this.i();return t?t.ast:void 0}matchesConditions(t){if(!this.conditions)return true;if(!t||T(t))return!this.inverted;const e=this.i();return e(t)}matchesField(t){if(!this.fields)return true;if(!t)return!this.inverted;if(this.fields&&!this.u)this.u=this.t.fieldMatcher(this.fields);return this.u(t)}}function K(t,e){const i={value:t,prev:e,next:null};if(e)e.next=i;return i}function N(t){if(t.next)t.next.prev=t.prev;if(t.prev)t.prev.next=t.next;t.next=t.prev=null}const Q=t=>({value:t.value,prev:t.prev,next:t.next});const V=()=>({rules:[],merged:false});const W=()=>new Map;const X=(t,e)=>{if(!t.h&&e.fields)t.h=true};class Z{constructor(t=[],e={}){this.h=false;this.l=new Map;this.p={conditionsMatcher:e.conditionsMatcher,fieldMatcher:e.fieldMatcher,resolveAction:e.resolveAction||G};this.g=e.anyAction||"manage";this.$=e.anySubjectType||"all";this.m=e.detectSubjectType||S;this.A=t;this.j=this.v(t)}get rules(){return this.A}detectSubjectType(t){if(T(t))return t;if(!t)return this.$;return this.m(t)}update(t){const e={rules:t,ability:this,target:this};this.M("update",e);this.A=t;this.j=this.v(t);this.M("updated",e);return this}v(t){const e=new Map;for(let i=t.length-1;i>=0;i--){const s=t.length-i-1;const n=new J(t[i],this.p,s);const r=O(n.action);const o=O(n.subject||this.$);X(this,n);for(let t=0;t<o.length;t++){const i=U(e,o[t],W);for(let t=0;t<r.length;t++)U(i,r[t],V).rules.push(n)}}return e}possibleRulesFor(t,e=this.$){if(!T(e))throw new Error('"possibleRulesFor" accepts only subject types (i.e., string or class) as the 2nd parameter');const i=U(this.j,e,W);const s=U(i,t,V);if(s.merged)return s.rules;const n=t!==this.g&&i.has(this.g)?i.get(this.g).rules:void 0;let r=L(s.rules,n);if(e!==this.$)r=L(r,this.possibleRulesFor(t,this.$));s.rules=r;s.merged=true;return r}rulesFor(t,e,i){const s=this.possibleRulesFor(t,e);if(i&&"string"!==typeof i)throw new Error("The 3rd, `field` parameter is expected to be a string. See https://stalniy.github.io/casl/en/api/casl-ability#can-of-pure-ability for details");if(!this.h)return s;return s.filter((t=>t.matchesField(i)))}on(t,e){const i=this.l.get(t)||null;const s=K(e,i);this.l.set(t,s);return()=>{const e=this.l.get(t);if(!s.next&&!s.prev&&e===s)this.l.delete(t);else if(s===e)this.l.set(t,s.prev);N(s)}}M(t,e){let i=this.l.get(t)||null;while(null!==i){const t=i.prev?Q(i.prev):null;i.value(e);i=t}}}class PureAbility extends Z{can(...t){const e=this.relevantRuleFor(...t);return!!e&&!e.inverted}relevantRuleFor(t,e,i){const s=this.detectSubjectType(e);const n=this.rulesFor(t,s,i);for(let t=0,i=n.length;t<i;t++)if(n[t].matchesConditions(e))return n[t];return null}cannot(...t){return!this.can(...t)}}const tt={$eq:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$eq,$ne:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$ne,$lt:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$lt,$lte:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$lte,$gt:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$gt,$gte:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$gte,$in:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$in,$nin:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$nin,$all:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$all,$size:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$size,$regex:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$regex,$options:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$options,$elemMatch:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$elemMatch,$exists:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_0__.$exists};const et={eq:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.eq,ne:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.ne,lt:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.lt,lte:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.lte,gt:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.gt,gte:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.gte,in:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.within,nin:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.nin,all:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.all,size:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.size,regex:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.regex,elemMatch:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.elemMatch,exists:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.exists,and:_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_1__.and};const it=(e,i,s)=>(0,_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_2__.createFactory)(Object.assign({},tt,e),Object.assign({},et,i),s);const st=(0,_ucast_mongo2js__WEBPACK_IMPORTED_MODULE_2__.createFactory)(tt,et);const nt=/[-/\\^$+?.()|[\]{}]/g;const rt=/\.?\*+\.?/g;const ot=/\*+/;const ct=/\./g;function ut(t,e,i){const s="*"===i[0]||"."===t[0]&&"."===t[t.length-1]?"+":"*";const n=-1===t.indexOf("**")?"[^.]":".";const r=t.replace(ct,"\\$&").replace(ot,n+s);return e+t.length===i.length?`(?:${r})?`:r}function ht(t,e,i){if("."===t&&("*"===i[e-1]||"*"===i[e+1]))return t;return`\\${t}`}function lt(t){const e=t.map((t=>t.replace(nt,ht).replace(rt,ut)));const i=e.length>1?`(?:${e.join("|")})`:e[0];return new RegExp(`^${i}$`)}const at=t=>{let e;return i=>{if("undefined"===typeof e)e=t.every((t=>-1===t.indexOf("*")))?null:lt(t);return null===e?-1!==t.indexOf(i):e.test(i)}};class Ability extends PureAbility{constructor(t=[],e={}){super(t,Object.assign({conditionsMatcher:st,fieldMatcher:at},e))}}class ft{constructor(t){this._=t}because(t){this._.reason=t;return this}}class AbilityBuilder{constructor(t){this.rules=[];this.F=t;this.can=this.can.bind(this);this.cannot=this.cannot.bind(this);this.build=this.build.bind(this)}can(t,e,i,s){const n={action:t};if(e){n.subject=e;if(Array.isArray(i)||"string"===typeof i)n.fields=i;else if("undefined"!==typeof i)n.conditions=i;if("undefined"!==typeof s)n.conditions=s}this.rules.push(n);return new ft(n)}cannot(t,e,i,s){const n=this.can(t,e,i,s);n._.inverted=true;return n}build(t){return new this.F(this.rules,t)}}function defineAbility(t,e){const i=new AbilityBuilder(Ability);const s=t(i.can,i.cannot);if(s&&"function"===typeof s.then)return s.then((()=>i.build(e)));return i.build(e)}const dt=t=>`Cannot execute "${t.action}" on "${t.subjectType}"`;const pt=function t(e){this.message=e};pt.prototype=Object.create(Error.prototype);class ForbiddenError extends pt{static setDefaultMessage(t){this.O="string"===typeof t?()=>t:t}static from(t){return new this(t)}constructor(t){super("");this.ability=t;if("function"===typeof Error.captureStackTrace){this.name="ForbiddenError";Error.captureStackTrace(this,this.constructor)}}setMessage(t){this.message=t;return this}throwUnlessCan(...t){const e=this.ability.relevantRuleFor(...t);if(e&&!e.inverted)return;this.action=t[0];this.subject=t[1];this.subjectType=P(this.ability.detectSubjectType(t[1]));this.field=t[2];const i=e?e.reason:"";this.message=this.message||i||this.constructor.O(this);throw this}}ForbiddenError.O=dt;var bt=Object.freeze({__proto__:null});
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@casl/vue/dist/es6m/index.mjs":
+/*!****************************************************!*\
+  !*** ./node_modules/@casl/vue/dist/es6m/index.mjs ***!
+  \****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ABILITY_TOKEN": () => (/* binding */ o),
+/* harmony export */   "Can": () => (/* binding */ u),
+/* harmony export */   "abilitiesPlugin": () => (/* binding */ a),
+/* harmony export */   "provideAbility": () => (/* binding */ provideAbility),
+/* harmony export */   "useAbility": () => (/* binding */ useAbility)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _casl_ability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @casl/ability */ "./node_modules/@casl/ability/dist/es6m/index.mjs");
+function reactiveAbility(i){if(i.hasOwnProperty("possibleRulesFor"))return i;const n=(0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);i.on("updated",(()=>{n.value=!n.value}));const r=i.possibleRulesFor.bind(i);i.possibleRulesFor=(t,i)=>{n.value=n.value;return r(t,i)};i.can=i.can.bind(i);i.cannot=i.cannot.bind(i);return i}const o=Symbol("ability");function useAbility(){const t=(0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(o);if(!t)throw new Error("Cannot inject Ability instance because it was not provided");return t}function provideAbility(t){(0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)(o,reactiveAbility(t))}function s(t){if("a"in t)return"a";if("this"in t)return"this";if("an"in t)return"an";return""}const u=(0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({name:"Can",props:{I:String,do:String,a:[String,Function],an:[String,Function],this:[String,Function,Object],on:[String,Function,Object],not:Boolean,passThrough:Boolean,field:String},setup(t,{slots:i}){const n=t;let r="do";let e="on";if(!(r in t)){r="I";e=s(t)}if(!n[r])throw new Error("Neither `I` nor `do` prop was passed in <Can>");if(!i.default)throw new Error("Expects to receive default slot");const o=useAbility();return()=>{const s=o.can(n[r],n[e],n.field);const u=t.not?!s:s;if(!t.passThrough)return u?i.default():null;return i.default({allowed:u,ability:o})}}});function a(t,i,n){if(!i||!(i instanceof _casl_ability__WEBPACK_IMPORTED_MODULE_1__.PureAbility))throw new Error("Please provide an Ability instance to abilitiesPlugin plugin");t.provide(o,reactiveAbility(i));if(n&&n.useGlobalProperties){t.config.globalProperties.$ability=i;t.config.globalProperties.$can=i.can.bind(i)}}
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ucast/core/dist/es6m/index.mjs":
+/*!******************************************************!*\
+  !*** ./node_modules/@ucast/core/dist/es6m/index.mjs ***!
+  \******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CompoundCondition": () => (/* binding */ r),
+/* harmony export */   "Condition": () => (/* binding */ t),
+/* harmony export */   "DocumentCondition": () => (/* binding */ e),
+/* harmony export */   "FieldCondition": () => (/* binding */ o),
+/* harmony export */   "ITSELF": () => (/* binding */ n),
+/* harmony export */   "NULL_CONDITION": () => (/* binding */ s),
+/* harmony export */   "ObjectQueryParser": () => (/* binding */ j),
+/* harmony export */   "buildAnd": () => (/* binding */ w),
+/* harmony export */   "buildOr": () => (/* binding */ b),
+/* harmony export */   "createInterpreter": () => (/* binding */ m),
+/* harmony export */   "createTranslatorFactory": () => (/* binding */ v),
+/* harmony export */   "defaultInstructionParsers": () => (/* binding */ O),
+/* harmony export */   "hasOperators": () => (/* binding */ l),
+/* harmony export */   "identity": () => (/* binding */ a),
+/* harmony export */   "ignoreValue": () => (/* binding */ f),
+/* harmony export */   "isCompound": () => (/* binding */ c),
+/* harmony export */   "object": () => (/* binding */ h),
+/* harmony export */   "optimizedCompoundCondition": () => (/* binding */ u),
+/* harmony export */   "parseInstruction": () => (/* binding */ x)
+/* harmony export */ });
+class t{constructor(t,e){this.operator=t,this.value=e,Object.defineProperty(this,"t",{writable:!0})}get notes(){return this.t}addNote(t){this.t=this.t||[],this.t.push(t)}}class e extends t{}class r extends e{constructor(t,e){if(!Array.isArray(e))throw new Error(`"${t}" operator expects to receive an array of conditions`);super(t,e)}}const n="__itself__";class o extends t{constructor(t,e,r){super(t,r),this.field=e}}const s=new e("__null__",null),i=Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);function c(t,e){return e instanceof r&&e.operator===t}function u(t,e){return 1===e.length?e[0]:new r(t,function t(e,r,n){const o=n||[];for(let n=0,s=r.length;n<s;n++){const s=r[n];c(e,s)?t(e,s.value,o):o.push(s)}return o}(t,e))}const a=t=>t,h=()=>Object.create(null),f=Object.defineProperty(h(),"__@type@__",{value:"ignore value"});function l(t,e,r=!1){if(!t||t&&t.constructor!==Object)return!1;for(const n in t){if(i(t,n)&&i(e,n)&&(!r||t[n]!==f))return!0}return!1}function d(t){const e=[];for(const r in t)i(t,r)&&t[r]!==f&&e.push(r);return e}function p(t,e){e!==s&&t.push(e)}const w=t=>u("and",t),b=t=>u("or",t),O={compound(t,e,n){const o=(Array.isArray(e)?e:[e]).map(t=>n.parse(t));return new r(t.name,o)},field:(t,e,r)=>new o(t.name,r.field,e),document:(t,r)=>new e(t.name,r)};class j{constructor(t,e=h()){this.o=void 0,this.s=void 0,this.i=void 0,this.u=void 0,this.h=void 0,this.parse=this.parse.bind(this),this.u={operatorToConditionName:e.operatorToConditionName||a,defaultOperatorName:e.defaultOperatorName||"eq",mergeFinalConditions:e.mergeFinalConditions||w},this.o=Object.keys(t).reduce((e,r)=>(e[r]=Object.assign({name:this.u.operatorToConditionName(r)},t[r]),e),{}),this.s=Object.assign({},e.fieldContext,{field:"",query:{},parse:this.parse,hasOperators:t=>l(t,this.o,e.useIgnoreValue)}),this.i=Object.assign({},e.documentContext,{parse:this.parse,query:{}}),this.h=e.useIgnoreValue?d:Object.keys}setParse(t){this.parse=t,this.s.parse=t,this.i.parse=t}parseField(t,e,r,n){const o=this.o[e];if(!o)throw new Error(`Unsupported operator "${e}"`);if("field"!==o.type)throw new Error(`Unexpected ${o.type} operator "${e}" at field level`);return this.s.field=t,this.s.query=n,this.parseInstruction(o,r,this.s)}parseInstruction(t,e,r){"function"==typeof t.validate&&t.validate(t,e);return(t.parse||O[t.type])(t,e,r)}parseFieldOperators(t,e){const r=[],n=this.h(e);for(let o=0,s=n.length;o<s;o++){const s=n[o];if(!this.o[s])throw new Error(`Field query for "${t}" may contain only operators or a plain object as a value`);p(r,this.parseField(t,s,e[s],e))}return r}parse(t){const e=[],r=this.h(t);this.i.query=t;for(let n=0,o=r.length;n<o;n++){const o=r[n],s=t[o],i=this.o[o];if(i){if("document"!==i.type&&"compound"!==i.type)throw new Error(`Cannot use parsing instruction for operator "${o}" in "document" context as it is supposed to be used in  "${i.type}" context`);p(e,this.parseInstruction(i,s,this.i))}else this.s.hasOperators(s)?e.push(...this.parseFieldOperators(o,s)):p(e,this.parseField(o,this.u.defaultOperatorName,s,t))}return this.u.mergeFinalConditions(e)}}function _(t,e){const r=t[e];if("function"!=typeof r)throw new Error(`Unable to interpret "${e}" condition. Did you forget to register interpreter for it?`);return r}function y(t){return t.operator}function m(t,e){const r=e,n=r&&r.getInterpreterName||y;let o;switch(r?r.numberOfArguments:0){case 1:o=e=>{const o=n(e,r);return _(t,o)(e,s)};break;case 3:o=(e,o,i)=>{const c=n(e,r);return _(t,c)(e,o,i,s)};break;default:o=(e,o)=>{const i=n(e,r);return _(t,i)(e,o,s)}}const s=Object.assign({},r,{interpret:o});return s.interpret}function v(t,e){return(r,...n)=>{const o=t(r,...n),s=e.bind(null,o);return s.ast=o,s}}const x=j.prototype.parseInstruction;
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ucast/js/dist/es6m/index.mjs":
+/*!****************************************************!*\
+  !*** ./node_modules/@ucast/js/dist/es6m/index.mjs ***!
+  \****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "all": () => (/* binding */ q),
+/* harmony export */   "allInterpreters": () => (/* binding */ S),
+/* harmony export */   "and": () => (/* binding */ m),
+/* harmony export */   "compare": () => (/* binding */ a),
+/* harmony export */   "createGetter": () => (/* binding */ s),
+/* harmony export */   "createJsInterpreter": () => (/* binding */ l),
+/* harmony export */   "elemMatch": () => (/* binding */ z),
+/* harmony export */   "eq": () => (/* binding */ b),
+/* harmony export */   "exists": () => (/* binding */ _),
+/* harmony export */   "getObjectField": () => (/* binding */ f),
+/* harmony export */   "getObjectFieldCursor": () => (/* binding */ i),
+/* harmony export */   "gt": () => (/* binding */ j),
+/* harmony export */   "gte": () => (/* binding */ w),
+/* harmony export */   "interpret": () => (/* binding */ U),
+/* harmony export */   "lt": () => (/* binding */ h),
+/* harmony export */   "lte": () => (/* binding */ d),
+/* harmony export */   "mod": () => (/* binding */ v),
+/* harmony export */   "ne": () => (/* binding */ A),
+/* harmony export */   "nin": () => (/* binding */ $),
+/* harmony export */   "nor": () => (/* binding */ g),
+/* harmony export */   "not": () => (/* binding */ y),
+/* harmony export */   "or": () => (/* binding */ p),
+/* harmony export */   "regex": () => (/* binding */ O),
+/* harmony export */   "size": () => (/* binding */ x),
+/* harmony export */   "where": () => (/* binding */ E),
+/* harmony export */   "within": () => (/* binding */ N)
+/* harmony export */ });
+/* harmony import */ var _ucast_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ucast/core */ "./node_modules/@ucast/core/dist/es6m/index.mjs");
+function n(r,t,n){for(let e=0,o=r.length;e<o;e++)if(0===n(r[e],t))return!0;return!1}function e(r,t){return Array.isArray(r)&&Number.isNaN(Number(t))}function o(r,t,n){if(!e(r,t))return n(r,t);let o=[];for(let e=0;e<r.length;e++){const u=n(r[e],t);void 0!==u&&(o=o.concat(u))}return o}function u(r){return(t,n,e)=>{const o=e.get(n,t.field);return Array.isArray(o)?o.some(n=>r(t,n,e)):r(t,o,e)}}const c=(r,t)=>r[t];function i(r,t,n){const e=t.lastIndexOf(".");return-1===e?[r,t]:[n(r,t.slice(0,e)),t.slice(e+1)]}function f(t,n,e=c){if(n===_ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF)return t;if(!t)throw new Error(`Unable to get field "${n}" out of ${String(t)}.`);return function(r,t,n){if(-1===t.indexOf("."))return o(r,t,n);const e=t.split(".");let u=r;for(let r=0,t=e.length;r<t;r++)if(u=o(u,e[r],n),!u||"object"!=typeof u)return u;return u}(t,n,e)}function s(r){return(t,n)=>f(t,n,r)}function a(r,t){return r===t?0:r>t?1:-1}function l(r,n={}){return (0,_ucast_core__WEBPACK_IMPORTED_MODULE_0__.createInterpreter)(r,Object.assign({get:f,compare:a},n))}const p=(r,t,{interpret:n})=>r.value.some(r=>n(r,t)),g=(r,t,n)=>!p(r,t,n),m=(r,t,{interpret:n})=>r.value.every(r=>n(r,t)),y=(r,t,{interpret:n})=>!n(r.value[0],t),b=(r,t,{compare:e,get:o})=>{const u=o(t,r.field);return Array.isArray(u)&&!Array.isArray(r.value)?n(u,r.value,e):0===e(u,r.value)},A=(r,t,n)=>!b(r,t,n),d=u((r,t,n)=>{const e=n.compare(t,r.value);return 0===e||-1===e}),h=u((r,t,n)=>-1===n.compare(t,r.value)),j=u((r,t,n)=>1===n.compare(t,r.value)),w=u((r,t,n)=>{const e=n.compare(t,r.value);return 0===e||1===e}),_=(t,n,{get:o})=>{if(t.field===_ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF)return void 0!==n;const[u,c]=i(n,t.field,o),f=r=>!!r&&r.hasOwnProperty(c)===t.value;return e(u,c)?u.some(f):f(u)},v=u((r,t)=>"number"==typeof t&&t%r.value[0]===r.value[1]),x=(t,n,{get:o})=>{const[u,c]=i(n,t.field,o),f=r=>{const n=o(r,c);return Array.isArray(n)&&n.length===t.value};return t.field!==_ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF&&e(u,c)?u.some(f):f(u)},O=u((r,t)=>"string"==typeof t&&r.value.test(t)),N=u((r,t,{compare:e})=>n(r.value,t,e)),$=(r,t,n)=>!N(r,t,n),q=(r,t,{compare:e,get:o})=>{const u=o(t,r.field);return Array.isArray(u)&&r.value.every(r=>n(u,r,e))},z=(r,t,{interpret:n,get:e})=>{const o=e(t,r.field);return Array.isArray(o)&&o.some(t=>n(r.value,t))},E=(r,t)=>r.value.call(t);var M=Object.freeze({__proto__:null,or:p,nor:g,and:m,not:y,eq:b,ne:A,lte:d,lt:h,gt:j,gte:w,exists:_,mod:v,size:x,regex:O,within:N,nin:$,all:q,elemMatch:z,where:E});const S=Object.assign({},M,{in:N}),U=l(S);
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ucast/mongo2js/dist/es6m/index.mjs":
+/*!**********************************************************!*\
+  !*** ./node_modules/@ucast/mongo2js/dist/es6m/index.mjs ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "$all": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$all),
+/* harmony export */   "$and": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$and),
+/* harmony export */   "$elemMatch": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$elemMatch),
+/* harmony export */   "$eq": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$eq),
+/* harmony export */   "$exists": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$exists),
+/* harmony export */   "$gt": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$gt),
+/* harmony export */   "$gte": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$gte),
+/* harmony export */   "$in": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$in),
+/* harmony export */   "$lt": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$lt),
+/* harmony export */   "$lte": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$lte),
+/* harmony export */   "$mod": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$mod),
+/* harmony export */   "$ne": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$ne),
+/* harmony export */   "$nin": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$nin),
+/* harmony export */   "$nor": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$nor),
+/* harmony export */   "$not": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$not),
+/* harmony export */   "$options": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$options),
+/* harmony export */   "$or": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$or),
+/* harmony export */   "$regex": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$regex),
+/* harmony export */   "$size": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$size),
+/* harmony export */   "$where": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.$where),
+/* harmony export */   "CompoundCondition": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.CompoundCondition),
+/* harmony export */   "Condition": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.Condition),
+/* harmony export */   "DocumentCondition": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.DocumentCondition),
+/* harmony export */   "FieldCondition": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.FieldCondition),
+/* harmony export */   "ITSELF": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF),
+/* harmony export */   "MongoQueryParser": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.MongoQueryParser),
+/* harmony export */   "NULL_CONDITION": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.NULL_CONDITION),
+/* harmony export */   "ObjectQueryParser": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.ObjectQueryParser),
+/* harmony export */   "all": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.all),
+/* harmony export */   "allInterpreters": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.allInterpreters),
+/* harmony export */   "allParsingInstructions": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.allParsingInstructions),
+/* harmony export */   "and": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.and),
+/* harmony export */   "buildAnd": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.buildAnd),
+/* harmony export */   "buildOr": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.buildOr),
+/* harmony export */   "compare": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.compare),
+/* harmony export */   "createFactory": () => (/* binding */ p),
+/* harmony export */   "createGetter": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.createGetter),
+/* harmony export */   "createInterpreter": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.createInterpreter),
+/* harmony export */   "createJsInterpreter": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.createJsInterpreter),
+/* harmony export */   "createTranslatorFactory": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.createTranslatorFactory),
+/* harmony export */   "defaultInstructionParsers": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.defaultInstructionParsers),
+/* harmony export */   "defaultParsers": () => (/* reexport safe */ _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.defaultParsers),
+/* harmony export */   "elemMatch": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.elemMatch),
+/* harmony export */   "eq": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.eq),
+/* harmony export */   "exists": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.exists),
+/* harmony export */   "filter": () => (/* binding */ j),
+/* harmony export */   "getObjectField": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.getObjectField),
+/* harmony export */   "getObjectFieldCursor": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.getObjectFieldCursor),
+/* harmony export */   "gt": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.gt),
+/* harmony export */   "gte": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.gte),
+/* harmony export */   "guard": () => (/* binding */ a),
+/* harmony export */   "hasOperators": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.hasOperators),
+/* harmony export */   "identity": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.identity),
+/* harmony export */   "ignoreValue": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.ignoreValue),
+/* harmony export */   "interpret": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.interpret),
+/* harmony export */   "isCompound": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.isCompound),
+/* harmony export */   "lt": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.lt),
+/* harmony export */   "lte": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.lte),
+/* harmony export */   "mod": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.mod),
+/* harmony export */   "ne": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.ne),
+/* harmony export */   "nin": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.nin),
+/* harmony export */   "nor": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.nor),
+/* harmony export */   "not": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.not),
+/* harmony export */   "object": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.object),
+/* harmony export */   "optimizedCompoundCondition": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.optimizedCompoundCondition),
+/* harmony export */   "or": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.or),
+/* harmony export */   "parseInstruction": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.parseInstruction),
+/* harmony export */   "regex": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.regex),
+/* harmony export */   "size": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.size),
+/* harmony export */   "squire": () => (/* binding */ u),
+/* harmony export */   "where": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.where),
+/* harmony export */   "within": () => (/* reexport safe */ _ucast_js__WEBPACK_IMPORTED_MODULE_2__.within)
+/* harmony export */ });
+/* harmony import */ var _ucast_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ucast/mongo */ "./node_modules/@ucast/core/dist/es6m/index.mjs");
+/* harmony import */ var _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ucast/mongo */ "./node_modules/@ucast/mongo/dist/es6m/index.mjs");
+/* harmony import */ var _ucast_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ucast/js */ "./node_modules/@ucast/js/dist/es6m/index.mjs");
+function i(o){return o instanceof Date?o.getTime():o&&"function"==typeof o.toJSON?o.toJSON():o}const m=(o,t)=>(0,_ucast_js__WEBPACK_IMPORTED_MODULE_2__.compare)(i(o),i(t));function p(e,c,f){const s=new _ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.MongoQueryParser(e),i=(0,_ucast_js__WEBPACK_IMPORTED_MODULE_2__.createJsInterpreter)(c,Object.assign({compare:m},f));if(f&&f.forPrimitives){const o={field:_ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF},r=s.parse;s.setParse(t=>r(t,o))}return (0,_ucast_core__WEBPACK_IMPORTED_MODULE_0__.createTranslatorFactory)(s.parse,i)}const a=p(_ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.allParsingInstructions,_ucast_js__WEBPACK_IMPORTED_MODULE_2__.allInterpreters),u=p(["$and","$or"].reduce((o,t)=>(o[t]=Object.assign({},o[t],{type:"field"}),o),Object.assign({},_ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.allParsingInstructions,{$nor:Object.assign({},_ucast_mongo__WEBPACK_IMPORTED_MODULE_1__.allParsingInstructions.$nor,{type:"field",parse:_ucast_core__WEBPACK_IMPORTED_MODULE_0__.defaultInstructionParsers.compound})})),_ucast_js__WEBPACK_IMPORTED_MODULE_2__.allInterpreters,{forPrimitives:!0}),j=a;
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ucast/mongo/dist/es6m/index.mjs":
+/*!*******************************************************!*\
+  !*** ./node_modules/@ucast/mongo/dist/es6m/index.mjs ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "$all": () => (/* binding */ v),
+/* harmony export */   "$and": () => (/* binding */ c),
+/* harmony export */   "$elemMatch": () => (/* binding */ $),
+/* harmony export */   "$eq": () => (/* binding */ O),
+/* harmony export */   "$exists": () => (/* binding */ m),
+/* harmony export */   "$gt": () => (/* binding */ b),
+/* harmony export */   "$gte": () => (/* binding */ g),
+/* harmony export */   "$in": () => (/* binding */ y),
+/* harmony export */   "$lt": () => (/* binding */ E),
+/* harmony export */   "$lte": () => (/* binding */ j),
+/* harmony export */   "$mod": () => (/* binding */ h),
+/* harmony export */   "$ne": () => (/* binding */ R),
+/* harmony export */   "$nin": () => (/* binding */ x),
+/* harmony export */   "$nor": () => (/* binding */ d),
+/* harmony export */   "$not": () => (/* binding */ u),
+/* harmony export */   "$options": () => (/* binding */ q),
+/* harmony export */   "$or": () => (/* binding */ f),
+/* harmony export */   "$regex": () => (/* binding */ _),
+/* harmony export */   "$size": () => (/* binding */ w),
+/* harmony export */   "$where": () => (/* binding */ A),
+/* harmony export */   "MongoQueryParser": () => (/* binding */ P),
+/* harmony export */   "allParsingInstructions": () => (/* binding */ z),
+/* harmony export */   "defaultParsers": () => (/* reexport safe */ _ucast_core__WEBPACK_IMPORTED_MODULE_0__.defaultInstructionParsers)
+/* harmony export */ });
+/* harmony import */ var _ucast_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ucast/core */ "./node_modules/@ucast/core/dist/es6m/index.mjs");
+function s(e,t){if(!Array.isArray(t))throw new Error(`"${e.name}" expects value to be an array`)}function p(e,t){if(s(e,t),!t.length)throw new Error(`"${e.name}" expects to have at least one element in array`)}const l=e=>(t,r)=>{if(typeof r!==e)throw new Error(`"${t.name}" expects value to be a "${e}"`)},c={type:"compound",validate:p,parse(t,r,{parse:o}){const a=r.map(e=>o(e));return (0,_ucast_core__WEBPACK_IMPORTED_MODULE_0__.optimizedCompoundCondition)(t.name,a)}},f=c,d={type:"compound",validate:p},u={type:"field",validate(e,t){if(!(t&&(t instanceof RegExp||t.constructor===Object)))throw new Error(`"${e.name}" expects to receive either regular expression or object of field operators`)},parse(e,o,a){const n=o instanceof RegExp?new _ucast_core__WEBPACK_IMPORTED_MODULE_0__.FieldCondition("regex",a.field,o):a.parse(o,a);return new _ucast_core__WEBPACK_IMPORTED_MODULE_0__.CompoundCondition(e.name,[n])}},$={type:"field",validate(e,t){if(!t||t.constructor!==Object)throw new Error(`"${e.name}" expects to receive an object with nested query or field level operators`)},parse(e,r,{parse:a,field:n,hasOperators:i}){const s=i(r)?a(r,{field:_ucast_core__WEBPACK_IMPORTED_MODULE_0__.ITSELF}):a(r);return new _ucast_core__WEBPACK_IMPORTED_MODULE_0__.FieldCondition(e.name,n,s)}},w={type:"field",validate:l("number")},y={type:"field",validate:s},x=y,v=y,h={type:"field",validate(e,t){if(!Array.isArray(t)||2!==t.length)throw new Error(`"${e.name}" expects an array with 2 numeric elements`)}},m={type:"field",validate:l("boolean")},g={type:"field",validate:function(e,t){if(!("string"==typeof t||"number"==typeof t||t instanceof Date))throw new Error(`"${e.name}" expects value to be comparable (i.e., string, number or date)`)}},b=g,E=b,j=b,O={type:"field"},R=O,_={type:"field",validate(e,t){if(!(t instanceof RegExp)&&"string"!=typeof t)throw new Error(`"${e.name}" expects value to be a regular expression or a string that represents regular expression`)},parse(e,r,o){const a="string"==typeof r?new RegExp(r,o.query.$options||""):r;return new _ucast_core__WEBPACK_IMPORTED_MODULE_0__.FieldCondition(e.name,o.field,a)}},q={type:"field",parse:()=>_ucast_core__WEBPACK_IMPORTED_MODULE_0__.NULL_CONDITION},A={type:"document",validate:l("function")};var N=Object.freeze({__proto__:null,$and:c,$or:f,$nor:d,$not:u,$elemMatch:$,$size:w,$in:y,$nin:x,$all:v,$mod:h,$exists:m,$gte:g,$gt:b,$lt:E,$lte:j,$eq:O,$ne:R,$regex:_,$options:q,$where:A});class P extends _ucast_core__WEBPACK_IMPORTED_MODULE_0__.ObjectQueryParser{constructor(e){super(e,{defaultOperatorName:"$eq",operatorToConditionName:e=>e.slice(1)})}parse(e,t){return t&&t.field?(0,_ucast_core__WEBPACK_IMPORTED_MODULE_0__.buildAnd)(this.parseFieldOperators(t.field,e)):super.parse(e)}}const z=N;
+//# sourceMappingURL=index.mjs.map
 
 
 /***/ })
