@@ -115,7 +115,7 @@
                 </tbody>
             </table>
 
-            <Pagination :data="posts" @pagination-change-page="page => getPosts(page, selectedCategory)" >
+            <Pagination :data="posts" :limit="3" @pagination-change-page="page => getPosts(page, selectedCategory)" class="mt-4" >
              <template #prev-nav>
                 <span>&lt; Previous</span>
             </template>
@@ -214,7 +214,7 @@ export default{
                 search_global.value
             )
         })
-        watch(search_global, (current, previous) => {
+         watch(search_global, _.debounce((current, previous) => {
             getPosts(
                 1,
                 search_category.value,
@@ -223,7 +223,7 @@ export default{
                 search_content.value,
                 current
             )
-        })
+        }, 200))
 
         /*Finally return the values */
         return {

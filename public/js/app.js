@@ -21888,9 +21888,9 @@ __webpack_require__.r(__webpack_exports__);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(search_content, function (current, previous) {
       getPosts(1, search_category.value, search_id.value, search_title.value, current, search_global.value);
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(search_global, function (current, previous) {
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(search_global, _.debounce(function (current, previous) {
       getPosts(1, search_category.value, search_id.value, search_title.value, search_content.value, current);
-    });
+    }, 200));
     /*Finally return the values */
 
     return {
@@ -22719,9 +22719,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* UNKEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Pagination, {
     data: $setup.posts,
+    limit: 3,
     onPaginationChangePage: _cache[8] || (_cache[8] = function (page) {
       return $setup.getPosts(page, _ctx.selectedCategory);
-    })
+    }),
+    "class": "mt-4"
   }, {
     "prev-nav": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_31];
