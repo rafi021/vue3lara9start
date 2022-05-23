@@ -115,7 +115,9 @@
                 </tbody>
             </table>
 
-            <Pagination :data="posts" :limit="3" @pagination-change-page="page => getPosts(page, selectedCategory)" class="mt-4" >
+            <Pagination :data="posts" :limit="3"
+            @pagination-change-page="page => getPosts(page, search_category, search_id, search_title, search_content, search_global, orderColumn, orderDirection)"
+            class="mt-4" >
              <template #prev-nav>
                 <span>&lt; Previous</span>
             </template>

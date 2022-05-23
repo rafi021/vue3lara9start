@@ -23,9 +23,11 @@
         "@casl/ability": "^5.4.3",
         "@casl/vue": "^2.1.2",
         "laravel-vue-pagination": "^3.0.0",
+        "vee-validate": "^4.5.11",
         "vue": "^3.2.33",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.0.13",
-        "vue-sweetalert2": "^5.0.5"
+        "vue-sweetalert2": "^5.0.5",
+        "vue3-select2-component": "^0.1.7"
     }
 }

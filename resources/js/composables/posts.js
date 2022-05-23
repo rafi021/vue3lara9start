@@ -1,10 +1,15 @@
 import axios from "axios";
-import {ref, inject} from 'vue'
-import {useRouter} from 'vue-router'
+import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default function usePosts(){
     const posts = ref({});  // define posts object variable as ref
-    const post = ref({});   // define single post
+    const post = ref({
+        title: '',
+        content: '',
+        category_id: '',
+        thumbnail: ''
+    })   // define single post
     const router = useRouter()
     const validationErrors = ref({})
     const isLoading = ref(false)
